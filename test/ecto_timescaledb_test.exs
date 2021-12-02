@@ -1,8 +1,15 @@
 defmodule EctoTimescaledbTest do
   use ExUnit.Case
-  doctest EctoTimescaledb
+  import CompareSQL
+  import Ecto.Query
+  import Ecto.Timescaledb
 
-  test "greets the world" do
-    assert EctoTimescaledb.hello() == :world
+  test "time_bucket function" do
+    assert from(e in "E",
+             select: time_bucket("10 days", ten_days)
+           )
+           <~> from(e in "E",
+             select: fragment("time_bucket('10 days', time) ten_days")
+           )
   end
 end
