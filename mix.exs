@@ -8,7 +8,10 @@ defmodule EctoTimescaledb.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      elixirc_paths: elixirc_paths(Mix.env())
+      elixirc_paths: elixirc_paths(Mix.env()),
+      description: description(),
+      licenses: ["BSD3"],
+      links: %{}
     ]
   end
 
@@ -29,5 +32,11 @@ defmodule EctoTimescaledb.MixProject do
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"}
     ]
+  end
+
+  defp description() do
+    """
+    Provide `Ecto.Timescaledb` to write TimescaleDB extended SQL.
+    """
   end
 end
