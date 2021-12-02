@@ -12,4 +12,13 @@ defmodule EctoTimescaledbTest do
              select: fragment("time_bucket('10 days', time) ten_days")
            )
   end
+
+  test "as function" do
+    assert from(e in "E",
+             select: as(e.id, e_id)
+           )
+           <~> from(e in "E",
+             select: fragment("? AS e_id", e.id)
+           )
+  end
 end

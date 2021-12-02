@@ -25,4 +25,10 @@ defmodule Ecto.Timescaledb do
       fragment(unquote("time_bucket(?, time) " <> Macro.to_string(name)), unquote(duration))
     end
   end
+
+  defmacro as(a, b) do
+    quote do
+      fragment(unquote("? AS " <> Macro.to_string(b)), unquote(a))
+    end
+  end
 end
