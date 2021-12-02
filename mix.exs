@@ -29,7 +29,8 @@ defmodule EctoTimescaledb.MixProject do
   defp deps do
     [
       {:ecto_sql, "~> 3.4"},
-      {:postgrex, ">= 0.0.0"}
+      {:postgrex, ">= 0.0.0"},
+      {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
 
