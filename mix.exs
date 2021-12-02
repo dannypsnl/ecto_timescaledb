@@ -10,8 +10,7 @@ defmodule EctoTimescaledb.MixProject do
       deps: deps(),
       elixirc_paths: elixirc_paths(Mix.env()),
       description: description(),
-      licenses: ["BSD3"],
-      links: %{}
+      package: package()
     ]
   end
 
@@ -31,6 +30,13 @@ defmodule EctoTimescaledb.MixProject do
     [
       {:ecto_sql, "~> 3.4"},
       {:postgrex, ">= 0.0.0"}
+    ]
+  end
+
+  defp package do
+    [
+      licenses: ["BSD-3-Clause"],
+      links: %{"GitHub" => "https://github.com/dannypsnl/ecto_timescaledb"}
     ]
   end
 
