@@ -21,4 +21,22 @@ defmodule EctoTimescaledbTest do
              select: fragment("? AS e_id", e.id)
            )
   end
+
+  test "histogram function" do
+    q1 =
+      from(e in "readings",
+        select: [e.device_id, histogram(e.battery_level, 20, 60, 5)],
+        group_by: e.device_id,
+        limit: 10
+      )
+
+    q2 =
+      from(e in "readings",
+        select: [e.device_id, fragment("histogram(?, 20, 60, 5)", e.battery_level)],
+        group_by: e.device_id,
+        limit: 10
+      )
+
+    assert q1 <~> q2
+  end
 end

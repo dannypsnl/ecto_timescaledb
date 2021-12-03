@@ -3,10 +3,14 @@ defmodule Ecto.Timescaledb do
   Documentation for `Ecto.Timescaledb`.
   """
 
-  require Ecto.Query
+  defmacro as(a, b) do
+    quote do
+      fragment(unquote("? AS " <> Macro.to_string(b)), unquote(a))
+    end
+  end
 
   @doc """
-  time_bucket extension in timescaledb
+  [time_bucket](https://docs.timescale.com/api/latest/hyperfunctions/time_bucket/) extension in timescaledb
 
   ## Examples
 
@@ -26,9 +30,18 @@ defmodule Ecto.Timescaledb do
     end
   end
 
-  defmacro as(a, b) do
+  @doc """
+  [histogram](https://docs.timescale.com/api/latest/hyperfunctions/histogram/)
+  """
+  defmacro histogram(value, min, max, nbuckets) do
     quote do
-      fragment(unquote("? AS " <> Macro.to_string(b)), unquote(a))
+      fragment(
+        "histogram(?, ?, ?, ?)",
+        unquote(value),
+        unquote(min),
+        unquote(max),
+        unquote(nbuckets)
+      )
     end
   end
 end
