@@ -28,8 +28,9 @@ defmodule EctoTimescaledb.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ecto_sql, "~> 3.4"},
-      {:postgrex, ">= 0.0.0", only: :test},
+      {:ecto, "~> 3.0", only: [:dev, :test]},
+      {:ecto_sql, ">= 0.0.0", only: [:dev, :test]},
+      {:postgrex, ">= 0.0.0", only: [:dev, :test]},
       {:ex_doc, ">= 0.0.0", only: :dev}
     ]
   end
