@@ -18,7 +18,7 @@ defmodule Ecto.Timescaledb do
       import Ecto.Query
 
       from(s in Stat,
-        select: [time_bucket("7 days", bucket), sum(s.avg)],
+        select: [time_bucket("7 days", time, bucket), sum(s.avg)],
         group_by: fragment("bucket"),
         order_by: [desc: fragment("bucket")]
       )
@@ -33,6 +33,9 @@ defmodule Ecto.Timescaledb do
     end
   end
 
+  @doc """
+  [time_bucket_ng](https://docs.timescale.com/api/latest/hyperfunctions/time_bucket_ng/) extension in timescaledb
+  """
   defmacro time_bucket_ng(bucket_width, ts) do
     quote do
       fragment(
