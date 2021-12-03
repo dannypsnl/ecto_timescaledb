@@ -6,7 +6,7 @@ defmodule EctoTimescaledbTest do
 
   test "as function" do
     assert from(e in "E",
-             select: as(e.id, e_id)
+             select: e.id ~> e_id
            )
            <~> from(e in "E",
              select: fragment("? AS e_id", e.id)
@@ -29,7 +29,7 @@ defmodule EctoTimescaledbTest do
       from(e in "conditions",
         select: [
           e.city,
-          as(time_bucket_ng("1 day", day), bucket),
+          time_bucket_ng("1 day", day) ~> bucket,
           min(e.temperature),
           max(e.temperature)
         ],

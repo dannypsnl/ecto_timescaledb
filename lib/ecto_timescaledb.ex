@@ -3,7 +3,21 @@ defmodule Ecto.Timescaledb do
   Documentation for `Ecto.Timescaledb`.
   """
 
-  defmacro as(a, b) do
+  @doc """
+  Stands for AS
+
+  ## Examples
+
+      import Ecto.Timescaledb
+      import Ecto.Query
+
+      from(s in Stat,
+        select: sum(s.avg) ~> avg,
+        order_by: [desc: fragment("avg")]
+      )
+
+  """
+  defmacro a ~> b do
     quote do
       fragment(unquote("? AS " <> Macro.to_string(b)), unquote(a))
     end
