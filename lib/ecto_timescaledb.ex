@@ -24,9 +24,21 @@ defmodule Ecto.Timescaledb do
       )
 
   """
-  defmacro time_bucket(duration, name) do
+  defmacro time_bucket(bucket_width, ts, name) do
     quote do
-      fragment(unquote("time_bucket(?, time) " <> Macro.to_string(name)), unquote(duration))
+      fragment(
+        unquote("time_bucket(?, " <> Macro.to_string(ts) <> ") " <> Macro.to_string(name)),
+        unquote(bucket_width)
+      )
+    end
+  end
+
+  defmacro time_bucket_ng(bucket_width, ts) do
+    quote do
+      fragment(
+        unquote("timescaledb_experimental.time_bucket_ng(?, " <> Macro.to_string(ts) <> ")"),
+        unquote(bucket_width)
+      )
     end
   end
 
