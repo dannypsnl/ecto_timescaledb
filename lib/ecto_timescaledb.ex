@@ -15,7 +15,6 @@ defmodule Ecto.Timescaledb do
         select: as(sum(s.avg), avg),
         order_by: [desc: fragment("avg")]
       )
-
   """
   defmacro as(a, b) do
     quote do
@@ -43,7 +42,6 @@ defmodule Ecto.Timescaledb do
         group_by: fragment("bucket"),
         order_by: [desc: fragment("bucket")]
       )
-
   """
   defmacro time_bucket(bucket_width, ts, name) do
     quote do
