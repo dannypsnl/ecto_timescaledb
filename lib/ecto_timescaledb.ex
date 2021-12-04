@@ -12,15 +12,22 @@ defmodule Ecto.Timescaledb do
       import Ecto.Query
 
       from(s in Stat,
-        select: sum(s.avg) ~> avg,
+        select: as(sum(s.avg), avg),
         order_by: [desc: fragment("avg")]
       )
 
   """
-  defmacro a ~> b do
+  defmacro as(a, b) do
     quote do
       fragment(unquote("? AS " <> Macro.to_string(b)), unquote(a))
     end
+  end
+
+  @doc """
+  mixfix version of as function
+  """
+  defmacro a ~> b do
+    quote do: as(unquote(a), unquote(b))
   end
 
   @doc """
