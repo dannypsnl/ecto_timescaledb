@@ -9,7 +9,7 @@ The package can be installed by adding `ecto_timescaledb` to your list of depend
 ```elixir
 def deps do
   [
-    {:ecto_timescaledb, "~> 0.2.0"}
+    {:ecto_timescaledb, "~> 0.3.0"}
   ]
 end
 ```
