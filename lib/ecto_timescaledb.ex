@@ -68,6 +68,17 @@ defmodule Ecto.Timescaledb do
 
   @doc """
   [histogram](https://docs.timescale.com/api/latest/hyperfunctions/histogram/)
+
+  ## Examples
+
+      import Ecto.Timescaledb
+      import Ecto.Query
+
+      from(r in Readings,
+        select: [r.device_id, histogram(r.battery_level, 20, 60, 5)],
+        group_by: r.device_id,
+        limit: 10
+      )
   """
   defmacro histogram(value, min, max, nbuckets) do
     quote do
