@@ -5,5 +5,3 @@ config :ecto_timescaledb, Test.Repo,
   username: "postgres",
   password: "postgres",
   hostname: "localhost"
-
-import_config "#{Mix.env()}.exs"
