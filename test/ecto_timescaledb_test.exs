@@ -2,7 +2,7 @@ defmodule EctoTimescaledbTest do
   use ExUnit.Case
   import CompareSQL
   import Ecto.Query
-  import Ecto.Timescaledb
+  import Ecto.Query.Timescaledb
 
   test "as function" do
     assert from(e in "E",

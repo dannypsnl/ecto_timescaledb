@@ -4,7 +4,7 @@
 [![Hex.pm](https://img.shields.io/hexpm/v/ecto_timescaledb.svg?style=flat-square)](https://hex.pm/packages/ecto_timescaledb)
 [![Hex.pm](https://img.shields.io/hexpm/dt/ecto_timescaledb.svg?style=flat-square)](https://hex.pm/packages/ecto_timescaledb)
 
-Provide `Ecto.Timescaledb` to write TimescaleDB extended SQL.
+Extend `Ecto.Query` to write TimescaleDB's SQL as builtin
 
 [Documentation](https://hexdocs.pm/ecto_timescaledb/api-reference.html)
 
@@ -23,8 +23,8 @@ end
 ## Quick start
 
 ```elixir
-import Ecto.Timescaledb
 import Ecto.Query
+import Ecto.Query.Timescaledb
 
 from(s in Stat,
   select: [time_bucket("7 days", time, bucket), sum(s.avg)],

@@ -1,6 +1,6 @@
-defmodule Ecto.Timescaledb do
+defmodule Ecto.Query.Timescaledb do
   @moduledoc """
-  Documentation for `Ecto.Timescaledb`.
+  Provides functions in [TimescaleDB](https://www.timescale.com/) extended SQL for `Ecto.Query`
   """
 
   @doc """
@@ -8,8 +8,8 @@ defmodule Ecto.Timescaledb do
 
   ## Examples
 
-      import Ecto.Timescaledb
       import Ecto.Query
+      import Ecto.Query.Timescaledb
 
       from(s in Stat,
         select: as(sum(s.avg), avg),
@@ -34,8 +34,8 @@ defmodule Ecto.Timescaledb do
 
   ## Examples
 
-      import Ecto.Timescaledb
       import Ecto.Query
+      import Ecto.Query.Timescaledb
 
       from(s in Stat,
         select: [time_bucket("7 days", time, bucket), sum(s.avg)],
@@ -69,8 +69,8 @@ defmodule Ecto.Timescaledb do
 
   ## Examples
 
-      import Ecto.Timescaledb
       import Ecto.Query
+      import Ecto.Query.Timescaledb
 
       from(r in Readings,
         select: [r.device_id, histogram(r.battery_level, 20, 60, 5)],
