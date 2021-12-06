@@ -1,4 +1,4 @@
-defmodule EctoTimescaledbTest do
+defmodule QueryTest do
   use ExUnit.Case
   import CompareSQL
   import Ecto.Query
