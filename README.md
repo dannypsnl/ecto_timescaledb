@@ -1,6 +1,8 @@
 # EctoTimescaledb
 
 [![Elixir CI](https://github.com/dannypsnl/ecto_timescaledb/actions/workflows/elixir.yml/badge.svg)](https://github.com/dannypsnl/ecto_timescaledb/actions/workflows/elixir.yml)
+[![Hex.pm](https://img.shields.io/hexpm/v/ecto_timescaledb.svg?style=flat-square)](https://hex.pm/packages/ecto_timescaledb)
+[![Hex.pm](https://img.shields.io/hexpm/dt/ecto_timescaledb.svg?style=flat-square)](https://hex.pm/packages/ecto_timescaledb)
 
 Provide `Ecto.Timescaledb` to write TimescaleDB extended SQL.
 
