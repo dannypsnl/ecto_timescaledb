@@ -22,6 +22,28 @@ end
 
 ## Quick start
 
+Create time-series table in migration
+
+```elixir
+use Ecto.Migration
+import Ecto.Migration.Timescaledb
+
+def up do
+  create table(:test_table, primary_key: false) do
+    add :time, :naive_datetime, null: false
+    add :example, :string
+  end
+
+  create_hypertable(:test_table, :time)
+end
+
+def down do
+  drop(table(:test_table))
+end
+```
+
+time-series query example
+
 ```elixir
 import Ecto.Query
 import Ecto.Query.Timescaledb
@@ -32,3 +54,4 @@ from(s in Stat,
   order_by: [desc: fragment("bucket")]
 )
 ```
+
