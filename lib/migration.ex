@@ -10,6 +10,20 @@ defmodule Ecto.Migration.Timescaledb do
     end
   end
 
+  def yes(sql, keys, opts) do
+    Enum.flat_map_reduce(
+      keys,
+      sql,
+      fn argument, sql ->
+        if opts[argument] do
+          {:halt, sql <> ", #{Atom.to_string(argument)} => #{opts[argument]}"}
+        else
+          {:halt, sql}
+        end
+      end
+    )
+  end
+
   @doc """
   [create_hypertable](https://docs.timescale.com/api/latest/hypertable/create_hypertable/#create-hypertable)
 
@@ -32,13 +46,34 @@ defmodule Ecto.Migration.Timescaledb do
   end
   ```
   """
-  defmacro create_hypertable(relation, time_column_name) do
-    quote do
-      execute(
-        unquote(
-          "SELECT create_hypertable('#{Atom.to_string(relation)}', '#{Atom.to_string(time_column_name)}')"
-        )
+  defmacro create_hypertable(relation, time_column_name, opts \\ []) do
+    sql =
+      "SELECT create_hypertable('#{Atom.to_string(relation)}', '#{Atom.to_string(time_column_name)}'"
+
+    {_, sql} =
+      yes(
+        sql,
+        [
+          :partitioning_column,
+          :number_partitions,
+          :chunk_time_interval,
+          :create_default_indexes,
+          :if_not_exists,
+          :partitioning_func,
+          :associated_schema_name,
+          :associated_table_prefix,
+          :migrate_data,
+          :time_partitioning_func,
+          :replication_factor,
+          :data_nodes
+        ],
+        opts
       )
+
+    sql = sql <> ")"
+
+    quote do
+      execute(unquote(sql))
     end
   end
 
@@ -59,33 +94,12 @@ defmodule Ecto.Migration.Timescaledb do
   defmacro add_dimension(relation, column_name, opts \\ []) do
     sql = "SELECT add_dimension('#{Atom.to_string(relation)}', '#{Atom.to_string(column_name)}'"
 
-    sql =
-      if opts[:number_partitions] do
-        sql <> ", number_partitions => #{opts[:number_partitions]}"
-      else
-        sql
-      end
-
-    sql =
-      if opts[:chunk_time_interval] do
-        sql <> ", chunk_time_interval => #{opts[:chunk_time_interval]}"
-      else
-        sql
-      end
-
-    sql =
-      if opts[:partitioning_func] do
-        sql <> ", partitioning_func => #{opts[:partitioning_func]}"
-      else
-        sql
-      end
-
-    sql =
-      if opts[:if_not_exists] do
-        sql <> ", if_not_exists => #{opts[:if_not_exists]}"
-      else
-        sql
-      end
+    {_, sql} =
+      yes(
+        sql,
+        [:number_partitions, :chunk_time_interval, :partitioning_func, :if_not_exists],
+        opts
+      )
 
     sql = sql <> ")"
 
