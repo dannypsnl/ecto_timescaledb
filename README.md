@@ -48,7 +48,8 @@ import Ecto.Query
 import Ecto.Query.Timescaledb
 
 from(s in Stat,
-  select: [time_bucket("7 days", time, bucket), sum(s.avg)],
+  select: [time_bucket("7 days", time, bucket), sum(s.avg) ~> sum_avg],
+  where: fragment("sum_avg") > 100,
   group_by: fragment("bucket"),
   order_by: [desc: fragment("bucket")]
 )
