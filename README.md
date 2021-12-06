@@ -1,5 +1,7 @@
 # EctoTimescaledb
 
+[![Elixir CI](https://github.com/dannypsnl/ecto_timescaledb/actions/workflows/elixir.yml/badge.svg)](https://github.com/dannypsnl/ecto_timescaledb/actions/workflows/elixir.yml)
+
 Provide `Ecto.Timescaledb` to write TimescaleDB extended SQL.
 
 ## Installation
