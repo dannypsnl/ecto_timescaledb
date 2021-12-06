@@ -14,6 +14,7 @@ defmodule Ecto.Migration.Timescaledb do
   ## Examples
 
   ```
+  use Ecto.Migration
   use Ecto.Migration.Timescaledb
 
   create_hypertable(user, joined_at)
