@@ -14,8 +14,8 @@ defmodule EctoTimescaledb.MixProject do
     ]
   end
 
-  defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_), do: ["lib"]
+  defp elixirc_paths(:test), do: elixirc_paths(:dev) ++ ["test/support"]
+  defp elixirc_paths(_), do: ["lib", "support"]
 
   # Run "mix help compile.app" to learn about applications.
   def application do

@@ -1,5 +1,5 @@
 defmodule CompareSQL do
-  alias Test.Repo
+  alias Support.Repo
 
   def a <~> b,
     do: Ecto.Adapters.SQL.to_sql(:all, Repo, a) == Ecto.Adapters.SQL.to_sql(:all, Repo, b)
