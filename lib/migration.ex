@@ -17,7 +17,18 @@ defmodule Ecto.Migration.Timescaledb do
   use Ecto.Migration
   use Ecto.Migration.Timescaledb
 
-  create_hypertable(user, joined_at)
+  def up do
+    create table(:user, primary_key: false) do
+      add :joined_at, :naive_datetime, null: false
+      add :name, :string
+    end
+
+    create_hypertable(user, joined_at)
+  end
+
+  def down do
+    drop(table(:user))
+  end
   ```
   """
   defmacro create_hypertable(relation, time_column_name) do
