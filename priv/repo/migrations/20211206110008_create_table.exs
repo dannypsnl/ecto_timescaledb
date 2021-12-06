@@ -8,7 +8,7 @@ defmodule Support.Repo.Migrations.CreateTable do
       add :example, :string
     end
 
-    create_hypertable(test_table, time)
+    create_hypertable(:test_table, :time)
   end
 
   def down do

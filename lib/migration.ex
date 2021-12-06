@@ -23,7 +23,7 @@ defmodule Ecto.Migration.Timescaledb do
       add :name, :string
     end
 
-    create_hypertable(user, joined_at)
+    create_hypertable(:user, :joined_at)
   end
 
   def down do
@@ -35,9 +35,7 @@ defmodule Ecto.Migration.Timescaledb do
     quote do
       execute(
         unquote(
-          "SELECT create_hypertable('" <>
-            Macro.to_string(relation) <>
-            "', '" <> Macro.to_string(time_column_name) <> "')"
+          "SELECT create_hypertable('#{Atom.to_string(relation)}', '#{Atom.to_string(time_column_name)}')"
         )
       )
     end
