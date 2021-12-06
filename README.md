@@ -6,6 +6,8 @@
 
 Provide `Ecto.Timescaledb` to write TimescaleDB extended SQL.
 
+[Documentation](https://hexdocs.pm/ecto_timescaledb/api-reference.html)
+
 ## Installation
 
 The package can be installed by adding `ecto_timescaledb` to your list of dependencies in `mix.exs`:
@@ -18,4 +20,15 @@ def deps do
 end
 ```
 
-Documentation can be found at [https://hexdocs.pm/ecto_timescaledb](https://hexdocs.pm/ecto_timescaledb).
+## Quick start
+
+```elixir
+import Ecto.Timescaledb
+import Ecto.Query
+
+from(s in Stat,
+  select: [time_bucket("7 days", time, bucket), sum(s.avg)],
+  group_by: fragment("bucket"),
+  order_by: [desc: fragment("bucket")]
+)
+```
