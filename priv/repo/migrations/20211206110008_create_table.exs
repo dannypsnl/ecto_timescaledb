@@ -1,6 +1,5 @@
 defmodule Support.Repo.Migrations.CreateTable do
-  use Ecto.Migration
-  import Ecto.Migration.Timescaledb
+  use Ecto.Migration.Timescaledb
 
   def up do
     create table(:test_table, primary_key: false) do

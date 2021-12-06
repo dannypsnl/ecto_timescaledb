@@ -25,8 +25,7 @@ end
 Create time-series table in migration
 
 ```elixir
-use Ecto.Migration
-import Ecto.Migration.Timescaledb
+use Ecto.Migration.Timescaledb
 
 def up do
   create table(:test_table, primary_key: false) do

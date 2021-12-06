@@ -3,14 +3,20 @@ defmodule Ecto.Migration.Timescaledb do
   Provides migration related functions in [TimescaleDB](https://www.timescale.com/) extended SQL for `Ecto.Query`
   """
 
+  defmacro __using__(_options) do
+    quote do
+      use Ecto.Migration
+      import Ecto.Migration.Timescaledb
+    end
+  end
+
   @doc """
   [create_hypertable](https://docs.timescale.com/api/latest/hypertable/create_hypertable/#create-hypertable)
 
   ## Examples
 
   ```
-  use Ecto.Migration
-  import Ecto.Migration.Timescaledb
+  use Ecto.Migration.Timescaledb
 
   def up do
     create table(:user, primary_key: false) do
