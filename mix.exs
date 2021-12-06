@@ -4,7 +4,7 @@ defmodule EctoTimescaledb.MixProject do
   def project do
     [
       app: :ecto_timescaledb,
-      version: "0.4.0",
+      version: "0.5.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
@@ -20,7 +20,7 @@ defmodule EctoTimescaledb.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      mod: {Test.Application, []},
+      mod: {Support.Application, []},
       extra_applications: [:logger]
     ]
   end
