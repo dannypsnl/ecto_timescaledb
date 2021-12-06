@@ -41,4 +41,56 @@ defmodule Ecto.Migration.Timescaledb do
       )
     end
   end
+
+  @doc """
+  [add_dimension](https://docs.timescale.com/api/latest/hypertable/add_dimension/#sample-usage)
+
+  ## Examples
+
+  ```
+  use Ecto.Migration.Timescaledb
+
+  def up do
+    create_hypertable(:conditions, :time)
+    add_dimension(:conditions, :location, number_partitions: 4)
+  end
+  ```
+  """
+  defmacro add_dimension(relation, column_name, opts \\ []) do
+    sql = "SELECT add_dimension('#{Atom.to_string(relation)}', '#{Atom.to_string(column_name)}'"
+
+    sql =
+      if opts[:number_partitions] do
+        sql <> ", number_partitions => #{opts[:number_partitions]}"
+      else
+        sql
+      end
+
+    sql =
+      if opts[:chunk_time_interval] do
+        sql <> ", chunk_time_interval => #{opts[:chunk_time_interval]}"
+      else
+        sql
+      end
+
+    sql =
+      if opts[:partitioning_func] do
+        sql <> ", partitioning_func => #{opts[:partitioning_func]}"
+      else
+        sql
+      end
+
+    sql =
+      if opts[:if_not_exists] do
+        sql <> ", if_not_exists => #{opts[:if_not_exists]}"
+      else
+        sql
+      end
+
+    sql = sql <> ")"
+
+    quote do
+      execute(unquote(sql))
+    end
+  end
 end
