@@ -4,7 +4,7 @@ defmodule EctoTimescaledb.MixProject do
   def project do
     [
       app: :ecto_timescaledb,
-      version: "0.8.0",
+      version: "0.9.0",
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
