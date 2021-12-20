@@ -10,20 +10,6 @@ defmodule Ecto.Migration.Timescaledb do
     end
   end
 
-  def yes(sql, keys, opts) do
-    Enum.flat_map_reduce(
-      keys,
-      sql,
-      fn argument, sql ->
-        if opts[argument] do
-          {:halt, sql <> ", #{Atom.to_string(argument)} => #{opts[argument]}"}
-        else
-          {:halt, sql}
-        end
-      end
-    )
-  end
-
   @doc """
   [create_hypertable](https://docs.timescale.com/api/latest/hypertable/create_hypertable/#create-hypertable)
 
@@ -51,7 +37,7 @@ defmodule Ecto.Migration.Timescaledb do
       "SELECT create_hypertable('#{Atom.to_string(relation)}', '#{Atom.to_string(time_column_name)}'"
 
     {_, sql} =
-      yes(
+      options_for_sql(
         sql,
         [
           :partitioning_column,
@@ -95,7 +81,7 @@ defmodule Ecto.Migration.Timescaledb do
     sql = "SELECT add_dimension('#{Atom.to_string(relation)}', '#{Atom.to_string(column_name)}'"
 
     {_, sql} =
-      yes(
+      options_for_sql(
         sql,
         [:number_partitions, :chunk_time_interval, :partitioning_func, :if_not_exists],
         opts
@@ -106,5 +92,19 @@ defmodule Ecto.Migration.Timescaledb do
     quote do
       execute(unquote(sql))
     end
+  end
+
+  defp options_for_sql(sql, keys, opts) do
+    Enum.flat_map_reduce(
+      keys,
+      sql,
+      fn argument, sql ->
+        if opts[argument] do
+          {:halt, sql <> ", #{Atom.to_string(argument)} => #{opts[argument]}"}
+        else
+          {:halt, sql}
+        end
+      end
+    )
   end
 end
