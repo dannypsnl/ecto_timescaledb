@@ -4,7 +4,9 @@
 [![Hex.pm](https://img.shields.io/hexpm/v/ecto_timescaledb.svg?style=flat-square)](https://hex.pm/packages/ecto_timescaledb)
 [![Hex.pm](https://img.shields.io/hexpm/dt/ecto_timescaledb.svg?style=flat-square)](https://hex.pm/packages/ecto_timescaledb)
 
-Extend `Ecto.Query` to write TimescaleDB's SQL as builtin
+Extend `Ecto`
+1. `Ecto.Query` for TimescaleDB's SQL as builtin
+2. `Ecto.Migration` for TimescaleDB's migration statement
 
 [Documentation](https://hexdocs.pm/ecto_timescaledb/api-reference.html)
 

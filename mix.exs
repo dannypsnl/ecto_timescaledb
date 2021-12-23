@@ -50,7 +50,9 @@ defmodule EctoTimescaledb.MixProject do
 
   defp description() do
     """
-    Extend `Ecto.Query` to write TimescaleDB's SQL as builtin
+    Extend `Ecto`
+    1. `Ecto.Query` for TimescaleDB's SQL as builtin
+    2. `Ecto.Migration` for TimescaleDB's migration statement
     """
   end
 end
